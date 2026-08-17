@@ -1,0 +1,14 @@
+# Home-level patch layer — applies to EVERY profile on this machine.
+# 常驻浏览器 MCP 工具（hangwin/mcp-chrome bridge）: mcp__chrome__<rawName>
+# reconnect.maxAttempts 设大：bridge 出现幽灵会话(如 dsh 重启后)时插件无限重试，
+# 只需运行 toggle.sh repair 清掉幽灵即可自动恢复，无需 off/on 循环。
+- insert:
+    - id: mcp-chrome
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: chrome
+        transport: streamable-http
+        url: http://127.0.0.1:12306/mcp
+        toolCallTimeoutMs: 120000
+        reconnect:
+          maxAttempts: 1000000
